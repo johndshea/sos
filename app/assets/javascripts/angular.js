@@ -11,7 +11,7 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 		longitude: 0
 	};
 
-	// Loads Google Map - NEED TO MAKE THIS MORE USEFUL
+	// Loads Google Maps, then loads all
 	navigator.geolocation.getCurrentPosition(initialize);
 	function initialize(position) {
 		var mapProp = {
@@ -30,17 +30,39 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
     	map: map,
     	title: 'You'
   	});
-	}
-	google.maps.event.addDomListener(window, 'load', initialize);
 
-	//GETS ALL REQUESTS
+		$http.get('/requests.json').success(function(data) {
+			data.forEach(function(request, i, array){
+				request.lat = parseFloat(request.lat);
+				request.lng = parseFloat(request.lng);
+
+				var marker = new google.maps.Marker({
+    			position: {lat: request.lat, lng: request.lng},
+    			map: map,
+    			title: 'request.name'
+  			});
+
+			});
+
+			controller.requests = data;
+		}).error(function(err) {
+			console.log(err);
+		});
+	}
+	// google.maps.event.addDomListener(window, 'load', initialize);
+
+	//GETS ALL REQUESTS - THIS IS NOT CURRENTLY CALLED, RATHER THE ABOVE CALLS THE SAME ITEMS
 	this.getRequests = function () {
 		$http.get('/requests.json').success(function(data) {
 			data.forEach(function(request, i, array){
 				request.lat = parseFloat(request.lat);
 				request.lng = parseFloat(request.lng);
 
-				console.log(request.lat, request.lng);
+				var marker = new google.maps.Marker({
+    			position: {lat: -25.363, lng: 131.044},
+    			map: globalPosition.map,
+    			title: 'Uluru (Ayers Rock)'
+  			});
 
 			});
 
@@ -50,7 +72,7 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 		});
 	};
 
-	this.getRequests();
+	// this.getRequests();
 
 	//CREATES A NEW SOS REQUEST
 	this.createRequest = function () {
