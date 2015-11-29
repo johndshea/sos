@@ -17,44 +17,62 @@
     <div class="nav-wrapper container">
       <a id="logo-container" href="#" class="brand-logo black-text">&#60;sos&#62;</a>
       <ul class="right">
-        <li><a href="#" class="black-text">My Account</a></li>
+        <% if logged_in? %>
+          <li><a href="#" class="black-text"><%= "Logged in as #{current_user.email}" %></a></li>
+        <% else %>
+          <li><a href="#" class="black-text">Logged Out</a></li>
+        <% end %>
       </ul>
 
       <ul id="nav-mobile" class="side-nav black-text">
-        <li><a href="#">Navbar Link</a></li>
+        <li><a href="#">My Account</a></li>
       </ul>
     </div>
   </nav>
-  <div id="googleMap" style="margin:0 auto;width:100%;height:380px; max-width: 952px; border-radius: 5px;"></div>
 
-<% if false %>
+<% if !logged_in? %>
+<p class="flash">
+  <%= flash.notice %>
+</p>
+
 <div class="container">
   <div class="card large white">
-    <form action="/users" method="POST">
-      <input type="hidden" name="authenticity_token"
-      value="<%= form_authenticity_token %>">
-      <div class="input-field col s12">
-        <input type="text" name="user[name]" id="name">
-        <label for="name">username</label>
-      </div>
-      <div class="input-field col s12">
-        <input type="email" name="user[email]" id="email">
-        <label for="email">email(optional)</label>
-      </div>
-      <div class="input-field col s12" id="password">
-        <input type="password" name="user[password]" id="password">
-        <label for="password">Password</label>
-      </div>
-      <div class="input-field col s12">
-        <input type="submit" value="Sign Up">
-      </div>
-    </form>
+    <div class="card-content white-text">
+      <form action="/sesson.json" method="POST">
+        <span class="card-title black-text">Log in or Sign Up</span>
+        <input type="hidden" name="authenticity_token"
+        value="<%= form_authenticity_token %>">
+
+        <div class="input-field col s12">
+          <input type="email" name="user[email]" id="email">
+          <label for="email">email</label>
+        </div>
+
+        <div class="input-field col s12" id="password">
+          <input type="password" name="user[password]" id="password">
+          <label for="password">password</label>
+        </div>
+
+        <div class="input-field col s12">
+          <input type="submit" value="Sign Up">
+        </div>
+
+      </form>
+    </div>
   </div>
 </div>
 <% end %>
 
-<% if true %>
+<% if logged_in? %>
+
+<div id="googleMap" style="margin:0 auto;width:100%;height:380px; max-width: 952px; border-radius: 5px;"></div>
+
+<p class="flash">
+  <%= flash.notice %>
+</p>
+
     <%= yield %>
+
 <% end %>
 
 <!-- switch for minified version when moving to production -->

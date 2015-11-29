@@ -3,9 +3,6 @@ class Request < ActiveRecord::Base
   has_many :request_skills
   has_many :skills, through: :request_skills
 
-  has_attached_file :image
-  validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png"]
-
   def skill_list
     self.skills.collect do |skill|
       skill.name
