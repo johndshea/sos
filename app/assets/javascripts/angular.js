@@ -37,15 +37,13 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 	this.getRequests = function () {
 		$http.get('/requests.json').success(function(data) {
 			data.forEach(function(request, i, array){
-				var uluru = {lat: parseFloat(request.lat), lng: parseFloat(request.lng)};
-				console.log(uluru);
-				new google.maps.Marker({
-		    	position: uluru,
-		    	map: globalPosition.map,
-		    	title: 'test'
-		  	});
+				request.lat = parseFloat(request.lat);
+				request.lng = parseFloat(request.lng);
+
+				console.log(request.lat, request.lng);
+
 			});
-			// console.log(data);
+
 			controller.requests = data;
 		}).error(function(err) {
 			console.log(err);
