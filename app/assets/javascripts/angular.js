@@ -1,36 +1,51 @@
-var app = angular.module("sos", [/* 'ngMaterial' */]);
+var app = angular.module("sos", []);
 
 ////////////      REQUEST CONTROLLER     ////////////////////
 app.controller('RequestsController', ['$http', '$scope', function($http, $scope){
-
 	var authenticity_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
 	var controller = this;
 
-	var position = {
-		coords: {
-			latitude: 0,
-			longitude: 0
-		}
+	// Position object created when app launches
+	var globalPosition = {
+		latitude: 0,
+		longitude: 0
 	};
 
-	// GETS LOCATION
-	function getLocation() {
-		if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(showPosition);
-		} else {
-				console.log("Geolocation is not supported by this browser.");
-		}
+	// Loads Google Map - NEED TO MAKE THIS MORE USEFUL
+	navigator.geolocation.getCurrentPosition(initialize);
+	function initialize(position) {
+		var mapProp = {
+	    center:new google.maps.LatLng(position.coords.latitude,position.coords.longitude),
+	    zoom:15,
+			scrollwheel: false,
+	  };
+	  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+			globalPosition.latitude = position.coords.latitude;
+			globalPosition.longitude = position.coords.longitude;
+
+		globalPosition.map = map;
+
+		var mainMarker = new google.maps.Marker({
+    	position: {lat: position.coords.latitude, lng: position.coords.longitude},
+    	map: map,
+    	title: 'You'
+  	});
 	}
-	function showPosition(position) {
-		console.log("Latitude: " + position.coords.latitude +
-		" Longitude: " + position.coords.longitude);
-	}
+	google.maps.event.addDomListener(window, 'load', initialize);
 
 	//GETS ALL REQUESTS
 	this.getRequests = function () {
 		$http.get('/requests.json').success(function(data) {
-			console.log(data);
+			data.forEach(function(request, i, array){
+				var uluru = {lat: parseFloat(request.lat), lng: parseFloat(request.lng)};
+				console.log(uluru);
+				new google.maps.Marker({
+		    	position: uluru,
+		    	map: globalPosition.map,
+		    	title: 'test'
+		  	});
+			});
+			// console.log(data);
 			controller.requests = data;
 		}).error(function(err) {
 			console.log(err);
@@ -41,6 +56,7 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 
 	//CREATES A NEW SOS REQUEST
 	this.createRequest = function () {
+		// redoes the location call, just in case
 		navigator.geolocation.getCurrentPosition(proceed);
 		function proceed(position) {
 			$http.post('/requests.json', {
@@ -50,13 +66,13 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 					description: controller.newRequestDescription,
 					skill_list: controller.newRequestSkillList,
 					image: controller.image,
-					lat: position.coords.latitude,
-					lng: position.coords.longitude
+					lat: position.coords.latitude || globalPosition.latitude,
+					lng: position.coords.longitude || globalPosition.longitude
 				}
 			}).success(function (data) {
 				console.log(data);
 				controller.getRequests();
-				// switching to "my requests" tab isn't working
+
 				$('ul.tabs').tabs('select_tab', 'mine');
 				$("#create_name").val('');
 				$("#create_desc").val('');
@@ -117,36 +133,4 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 		};
 }]);
 
-/////////////    LOCATION CONTROLLER - DOES NOT WORK ON HEROKU   ////////////////
-app.controller('LocationController', ['$http', '$timeout',
-function ($http, $timeout) {
-	var controller = this;
-
-	$.getJSON('http://www.telize.com/geoip?callback=?', function(json) {
-
-		latitude = json.latitude;
-		longitude = json.longitude;
-	}).success(function () {
-		console.log(latitude, longitude);
-	});
-}]);
-
 /////////////    UI JS   ////////////////
-
-//
-
-// /////////// GREET CONTROLLER /////////////
-// app.controller('GreetingController', ['$scope', '$http', function($scope, $http) {
-// 	$http.get('/session.json').success(function(data, status, headers, config) {
-// 			$scope.greeting = data;
-// 	}).error(function(data, status, headers, config) {
-// 			// log error
-// 			console.log("ERRRROOOO");
-// 	});
-// 	$http.get('/todos.json').success(function(data, status, headers, config) {
-// 			$scope.todos = data;
-// 	}).error(function(data, status, headers, config) {
-// 			// log error
-// 			console.log("ERRRROOOO");
-// 	});
-// }]);

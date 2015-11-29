@@ -13,7 +13,6 @@
       <h5>Create Request</h5>
       <div>
         <form class="newform" ng-submit="ctrl.createRequest()">
-        <h6>New Request</h6>
         <div class="input-field col s12">
           <input
             type="text"
@@ -56,9 +55,10 @@
           <div class="card-content white-text">
             <span class="card-title">{{ request.name }}</span>
             <p>{{ request.description }}</p>
-            <!-- Skills: <span ng-repeat="skill in request.skills"> {{ skill.name }}</span> -->
-            Skills: {{ request.skill_list }}
+            <p>Skills: {{ request.skill_list }}</p>
+            <p>Location: latitude {{ request.lat }}, longitude {{ request.lng }}</p>
           </div>
+
           <div class="card-action">
             <a href="#" class="edit" ng-click="editorEnabled=!editorEnabled">edit</a>
           </div>
