@@ -28,6 +28,7 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 		var mainMarker = new google.maps.Marker({
     	position: {lat: position.coords.latitude, lng: position.coords.longitude},
     	map: map,
+			icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
     	title: 'You'
   	});
 
