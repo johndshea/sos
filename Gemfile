@@ -53,3 +53,5 @@ gem 'rails_12factor', group: :production
 
 #Heroku requirement to set ruby version
 ruby "2.2.3"
+
+gem 'spring'
