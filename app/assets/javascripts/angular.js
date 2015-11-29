@@ -36,10 +36,28 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 				request.lat = parseFloat(request.lat);
 				request.lng = parseFloat(request.lng);
 
+				var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">' + request.name + '</h1>'+
+      '<div id="bodyContent">'+
+      '<p>' + request.desciption + '</p>'+
+      '<p><a href="#' + request.id + '">Help me</a></p>'+
+      '</div>'+
+      '</div>';
+
+				var infowindow = new google.maps.InfoWindow({
+    			content: contentString
+  			});
+
 				var marker = new google.maps.Marker({
     			position: {lat: request.lat, lng: request.lng},
     			map: map,
     			title: 'request.name'
+  			});
+
+				marker.addListener('click', function() {
+    			infowindow.open(map, marker);
   			});
 
 			});
