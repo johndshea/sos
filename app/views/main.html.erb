@@ -51,7 +51,7 @@
 
       <!-- Individual SOS Request Cards -->
       <div ng-repeat="request in ctrl.requests">
-        <a name="#{{ request.id }} "></a>
+        <a name="{{ request.id }}"></a>
         <div class="request card red" ng-hide="editorEnabled">
           <div class="card-content white-text">
             <span class="card-title">{{ request.name }}</span>

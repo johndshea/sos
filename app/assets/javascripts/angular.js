@@ -38,12 +38,11 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 				request.lng = parseFloat(request.lng);
 
 				var contentString = '<div id="content">'+
-      '<div id="siteNotice">'+
-      '</div>'+
-      '<h1 id="firstHeading" class="firstHeading">' + request.name + '</h1>'+
+      '<div id="siteNotice">'+'</div>'+
+    	'<h5 id="firstHeading" class="firstHeading">' + request.name + '</h5>'+
       '<div id="bodyContent">'+
-      '<p>' + request.desciption + '</p>'+
-      '<p><a href="#' + request.id + '">Help me</a></p>'+
+      	'<p>' + request.description + '</p>'+
+      	'<p><a href="#' + request.id + '">Help me</a></p>'+
       '</div>'+
       '</div>';
 
