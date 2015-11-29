@@ -1,0 +1,130 @@
+<div class="container">
+  <div class="row">
+    <br />
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s3"><a href="#create">Ask For Help</a></li>
+        <li class="tab col s3"><a class="active" href="#mine">My Help Requests</a></li>
+        <li class="tab col s3"><a href="#help">People I can Help</a></li>
+        <li class="tab col s3"><a href="#all">All Help Requests</a></li>
+      </ul>
+    </div>
+    <div id="create" class="col s12">
+      <h5>Create Request</h5>
+      <div>
+        <form class="newform" ng-submit="ctrl.createRequest()">
+        <h6>New Request</h6>
+        <div class="input-field col s12">
+          <input
+            type="text"
+            class=""
+            id="create_name"
+            cols: "30"
+            class="taskName"
+            ng-model="ctrl.newRequestName">
+          <label for="create_name">What do you need help with?</label>
+        </div><br/>
+        <div class="input-field col s12">
+          <textarea
+            class="materialize-textarea"
+            id="create_desc"
+            placeholder="Description"
+            ng-model="ctrl.newRequestDescription"
+            rows="3"
+            cols="40"></textarea><br/>
+          <label for="create_desc">Tell a little more about your problem</label>
+          <div class="input-field col s12">
+              <input type="text" id="create_skill_list"
+                   ng-model="ctrl.newRequestSkillList">
+             <label for="create_skill_list">Skills</label>
+          </div>
+          <br/>
+          <input id="file-input" type="file" ngf-select="upload($file)"
+          ng-model="ctrl.image" ngf-pattern="'image/*'" accept="image/*"
+          ngf-max-size="20MB" ngf-min-height="100">
+          <input type="submit" class="btn" value="add">
+        </div>
+        </form>
+      </div>
+    </div>
+    <div id="mine" class="col s12">
+      <h5>My Requests</h5>
+
+      <!-- Individual SOS Request Cards -->
+      <div ng-repeat="request in ctrl.requests">
+        <div class="request card red" ng-hide="editorEnabled">
+          <div class="card-content white-text">
+            <span class="card-title">{{ request.name }}</span>
+            <p>{{ request.description }}</p>
+            <!-- Skills: <span ng-repeat="skill in request.skills"> {{ skill.name }}</span> -->
+            Skills: {{ request.skill_list }}
+          </div>
+          <div class="card-action">
+            <a href="#" class="edit" ng-click="editorEnabled=!editorEnabled">edit</a>
+          </div>
+        </div>
+
+        <div class="request card green darken-2" ng-show="editorEnabled">
+          <form ng-submit="ctrl.editRequest(request)">
+            <div class="card-content white-text">
+              <div class="input-field col s12">
+                <span class="card-title">
+                  <input type="text" id="change_name"
+                       ng-model="request.name">
+                 </span>
+                 <label for="change_name">Name</label>
+              </div>
+            </div>
+            <div class="input-field col s12">
+              <textarea id="change_description"
+                        ng-model="request.description"
+                        rows="3"
+                        cols="30"
+                        class="materialize-textarea"></textarea>
+              <label for="change_description">Description</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" id="change_skill_list"
+                     ng-model="request.skill_list">
+               <label for="change_skill_list">Skills</label>
+            </div>
+            <div class="card-action">
+              <a href="#" ng-click="ctrl.deleteRequest(request)" class="btn">Delete</a>
+              <input type="submit" value="Change Request" class="btn"
+               ng-click="editorEnabled=!editorEnabled">
+               <a href="#" ng-click="editorEnabled=!editorEnabled" class="btn">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div> <!-- END Individual SOS Request Cards -->
+
+  <!-- Modal Structure -->
+  <!-- <div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+    </div>
+  </div> -->
+
+    <div id="all" class="col s12">
+      <h6>All Requests</h6>
+      <div ng-repeat="request in ctrl.requests">
+        <div class="request card red">
+          <div class="card-content white-text">
+            <span class="card-title">{{ request.name }}</span>
+            <p>{{ request.description }}</p>
+          </div>
+          <div class="card-action">
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </div>
+
+</div>

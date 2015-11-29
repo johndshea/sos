@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="sos">
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <%= csrf_meta_tags %>
+
+    <title>&#60;sos&#62;</title>
+
+  </head>
+  <body ng-controller="RequestsController as ctrl" ng-cloak>
+    <nav class="white" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="#" class="brand-logo black-text">&#60;sos&#62;</a>
+      <ul class="right">
+        <li><a href="#" class="black-text">My Account</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav black-text">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>
+    </div>
+  </nav>
+
+<% if false %>
+<div class="container">
+  <div class="card large white">
+    <form action="/users" method="POST">
+      <input type="hidden" name="authenticity_token"
+      value="<%= form_authenticity_token %>">
+      <div class="input-field col s12">
+        <input type="text" name="user[name]" id="name">
+        <label for="name">username</label>
+      </div>
+      <div class="input-field col s12">
+        <input type="email" name="user[email]" id="email">
+        <label for="email">email(optional)</label>
+      </div>
+      <div class="input-field col s12" id="password">
+        <input type="password" name="user[password]" id="password">
+        <label for="password">Password</label>
+      </div>
+      <div class="input-field col s12">
+        <input type="submit" value="Sign Up">
+      </div>
+    </form>
+  </div>
+</div>
+<% end %>
+
+<% if true %>
+    <%= yield %>
+<% end %>
+    <!-- switch for minified version when moving to production -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <!-- Compiled and minified materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <%= javascript_include_tag 'angular'  %>
+    <%= javascript_include_tag 'ng-file-upload'  %>
+  </body>
+</html>
