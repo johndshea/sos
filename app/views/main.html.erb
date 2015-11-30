@@ -54,9 +54,10 @@
         <div class="request card red" ng-hide="editorEnabled">
           <div class="card-content white-text">
             <span class="card-title">{{ request.name }}</span>
-            <p>{{ request.description }}</p>
+            <p>{{ request.description }}</p><br/>
             <p>Skills: {{ request.skill_list }}</p>
             <p>Location: latitude {{ request.lat }}, longitude {{ request.lng }}</p>
+            <p>Posted By: {{ request.email }}</p>
           </div>
 
           <!-- // need to add some sort of logic here to add markers on the map -->

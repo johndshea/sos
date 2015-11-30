@@ -38,13 +38,13 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 				request.lng = parseFloat(request.lng);
 
 				var contentString = '<div id="content">'+
-      '<div id="siteNotice">'+'</div>'+
-    	'<h5 id="firstHeading" class="firstHeading">' + request.name + '</h5>'+
-      '<div id="bodyContent">'+
-      	'<p>' + request.description + '</p>'+
-      	'<p><a href="#' + request.id + '">Help me</a></p>'+
-      '</div>'+
-      '</div>';
+	      '<div id="siteNotice">'+'</div>'+
+	    	'<h5 id="firstHeading" class="firstHeading">' + request.name + '</h5>'+
+	      '<div id="bodyContent">'+
+	      	'<p>' + request.description + '</p>'+
+	      	'<p><a href="#' + request.id + '">Help me</a></p>'+
+	      '</div>'+
+	      '</div>';
 
 				var infowindow = new google.maps.InfoWindow({
     			content: contentString
@@ -69,7 +69,7 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 	}
 	// google.maps.event.addDomListener(window, 'load', initialize);
 
-	//GETS ALL REQUESTS - THIS IS NOT CURRENTLY CALLED, RATHER THE ABOVE CALLS THE SAME ITEMS
+	//GETS ALL REQUESTS - THIS IS CALLED AS-NEEDED RATHER THAN ON LOAD
 	this.getRequests = function () {
 		$http.get('/requests.json').success(function(data) {
 			data.forEach(function(request, i, array){
@@ -79,7 +79,7 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 				var marker = new google.maps.Marker({
     			position: {lat: -25.363, lng: 131.044},
     			map: globalPosition.map,
-    			title: 'Uluru (Ayers Rock)'
+    			title: 'title'
   			});
 
 			});
@@ -143,7 +143,6 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 
 	// EDIT SOS REQUEST
 	this.editRequest = function (request) {
-		console.log(request);
 		$http.patch('/requests/' + request.id, {
 				authenticity_token: authenticity_token,
 				request: {
@@ -163,7 +162,7 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 			}).success(function (data) {
 				controller.getRequests();
 			}).error(function(err) {
-				console.log(err); 
+				console.log(err);
 			});
 		};
 		this.openModal = function(modal) {

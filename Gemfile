@@ -24,7 +24,10 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.7'
+# gem 'bcrypt', '~> 3.1.7'
+
+# WEIRD BUG - had to disable bcrypt in order for Sorcery to work properly - stashed some advice below.
+# If you receive a LoadError like `cannot load such file – bcrypt`, add this to your Gemfile: `gem ‘bcrypt-ruby’`, and then run `bundle` again.
 
 # Use Unicorn as the app server
 # gem 'unicorn'
