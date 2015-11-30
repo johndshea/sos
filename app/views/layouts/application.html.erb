@@ -22,7 +22,8 @@
           <li><a href="#" class="black-text"><%= "Logged in as #{current_user.email}" %></a></li>
           <li><a href="/logout" class="black-text">Log Out</li>
         <% else %>
-          <li><a href="/login" class="black-text">Log In</li><li><a href="/users/new" class="black-text">Sign Up</li>
+          <li><a href="/login" class="black-text">Log In</a></li>
+          <li><a href="/users/new" class="black-text">Sign Up</a></li>
         <% end %>
       </ul>
 
@@ -32,9 +33,11 @@
     </div>
   </nav>
 
-  <p class="flash">
-    <%= flash.notice %>
-  </p>
+  <div class="hidden">
+    <p class="flash">
+      <%= flash.notice or 'please wait, APIs are slow' %>
+    </p>
+  </div>
 
     <%= yield %>
 

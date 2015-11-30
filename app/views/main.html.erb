@@ -4,102 +4,126 @@
     <br />
     <div class="col s12">
       <ul class="tabs">
+        <li class="tab col s3"><a class="active" href="#all">All Help Requests</a></li>
         <li class="tab col s3"><a href="#create">Ask For Help</a></li>
-        <li class="tab col s3"><a class="active" href="#mine">My Help Requests</a></li>
+        <li class="tab col s3"><a href="#mine">My Help Requests</a></li>
         <li class="tab col s3"><a href="#help">People I can Help</a></li>
-        <li class="tab col s3"><a href="#all">All Help Requests</a></li>
       </ul>
     </div>
     <div id="create" class="col s12">
-      <div>
-        <form class="newform" ng-submit="ctrl.createRequest()">
-        <div class="input-field col s12">
-          <input
-            type="text"
-            class=""
-            id="create_name"
-            cols: "30"
-            class="taskName"
-            ng-model="ctrl.newRequestName">
-          <label for="create_name">What do you need help with?</label>
-        </div><br/>
-        <div class="input-field col s12">
-          <textarea
-            class="materialize-textarea"
-            id="create_desc"
-            placeholder="Description"
-            ng-model="ctrl.newRequestDescription"
-            rows="3"
-            cols="40"></textarea><br/>
-          <label for="create_desc">Tell a little more about your problem</label>
+      <% if logged_in? %>
+        <div>
+          <form class="newform" ng-submit="ctrl.createRequest()">
           <div class="input-field col s12">
-              <input type="text" id="create_skill_list"
-                   ng-model="ctrl.newRequestSkillList">
-             <label for="create_skill_list">Skills</label>
+            <input
+              type="text"
+              class=""
+              id="create_name"
+              cols: "30"
+              class="taskName"
+              ng-model="ctrl.newRequestName">
+            <label for="create_name">What do you need help with?</label>
+          </div><br/>
+          <div class="input-field col s12">
+            <textarea
+              class="materialize-textarea"
+              id="create_desc"
+              placeholder="Description"
+              ng-model="ctrl.newRequestDescription"
+              rows="3"
+              cols="40"></textarea><br/>
+            <label for="create_desc">Tell a little more about your problem</label>
+            <div class="input-field col s12">
+                <input type="text" id="create_skill_list"
+                     ng-model="ctrl.newRequestSkillList">
+               <label for="create_skill_list">Skills</label>
+            </div>
+            <br/>
+            <input id="file-input" type="file" ngf-select="upload($file)"
+            ng-model="ctrl.image" ngf-pattern="'image/*'" accept="image/*"
+            ngf-max-size="20MB" ngf-min-height="100">
+            <input type="submit" class="btn" value="add">
           </div>
-          <br/>
-          <input id="file-input" type="file" ngf-select="upload($file)"
-          ng-model="ctrl.image" ngf-pattern="'image/*'" accept="image/*"
-          ngf-max-size="20MB" ngf-min-height="100">
-          <input type="submit" class="btn" value="add">
+          </form>
         </div>
-        </form>
-      </div>
+      <% else %>
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Log in or Sign Up</span>
+            <p>Join our community</p>
+          </div>
+          <div class="card-action">
+            <a href="/login" class="white-text">Log In</a>
+            <a href="/users/new" class="white-text">Sign Up</a>
+          </div>
+        </div>
+      <% end %>
     </div>
     <div id="mine" class="col s12">
 
       <!-- Individual SOS Request Cards -->
-      <div ng-repeat="request in ctrl.requests">
-        <a name="{{ request.id }}"></a>
-        <div class="request card red" ng-hide="editorEnabled">
-          <div class="card-content white-text">
-            <span class="card-title">{{ request.name }}</span>
-            <p>{{ request.description }}</p><br/>
-            <p>Skills: {{ request.skill_list }}</p>
-            <p>Location: latitude {{ request.lat }}, longitude {{ request.lng }}</p>
-            <p>Posted By: {{ request.email }}</p>
-          </div>
-
-          <!-- // need to add some sort of logic here to add markers on the map -->
-
-          <div class="card-action">
-            <a href="#" class="edit" ng-click="editorEnabled=!editorEnabled">edit</a>
-          </div>
-        </div>
-
-        <div class="request card green darken-2" ng-show="editorEnabled">
-          <form ng-submit="ctrl.editRequest(request)">
+      <% if logged_in? %>
+        <div ng-repeat="request in ctrl.requests">
+          <a name="{{ request.id }}"></a>
+          <div class="request card red" ng-hide="editorEnabled">
             <div class="card-content white-text">
-              <div class="input-field col s12">
-                <span class="card-title">
-                  <input type="text" id="change_name"
-                       ng-model="request.name">
-                 </span>
-                 <label class="active" for="change_name">Name</label>
-              </div>
+              <span class="card-title">{{ request.name }}</span>
+              <p>{{ request.description }}</p><br/>
+              <p>Skills: {{ request.skill_list }}</p>
+              <p>Location: latitude {{ request.lat }}, longitude {{ request.lng }}</p>
+              <p>Posted By: {{ request.email }}</p>
             </div>
-            <div class="input-field col s12">
-              <textarea id="change_description"
-                        ng-model="request.description"
-                        rows="3"
-                        cols="30"
-                        class="materialize-textarea"></textarea>
-              <label class="active" for="change_description">Description</label>
-            </div>
-            <div class="input-field col s12">
-                <input type="text" id="change_skill_list"
-                     ng-model="request.skill_list">
-               <label class="active" for="change_skill_list">Skills</label>
-            </div>
+
             <div class="card-action">
-              <a href="#" ng-click="ctrl.deleteRequest(request)" class="btn">Delete</a>
-              <input type="submit" value="Change Request" class="btn"
-               ng-click="editorEnabled=!editorEnabled">
-               <a href="#" ng-click="editorEnabled=!editorEnabled" class="btn">Cancel</a>
+              <a href="#" class="edit" ng-click="editorEnabled=!editorEnabled">edit</a>
             </div>
-          </form>
+          </div>
+
+          <div class="request card green darken-2" ng-show="editorEnabled">
+            <form ng-submit="ctrl.editRequest(request)">
+              <div class="card-content white-text">
+                <div class="input-field col s12">
+                  <span class="card-title">
+                    <input type="text" id="change_name"
+                         ng-model="request.name">
+                   </span>
+                   <label class="active" for="change_name">Name</label>
+                </div>
+              </div>
+              <div class="input-field col s12">
+                <textarea id="change_description"
+                          ng-model="request.description"
+                          rows="3"
+                          cols="30"
+                          class="materialize-textarea"></textarea>
+                <label class="active" for="change_description">Description</label>
+              </div>
+              <div class="input-field col s12">
+                  <input type="text" id="change_skill_list"
+                       ng-model="request.skill_list">
+                 <label class="active" for="change_skill_list">Skills</label>
+              </div>
+              <div class="card-action">
+                <a href="#" ng-click="ctrl.deleteRequest(request)" class="btn">Delete</a>
+                <input type="submit" value="Change Request" class="btn"
+                 ng-click="editorEnabled=!editorEnabled">
+                 <a href="#" ng-click="editorEnabled=!editorEnabled" class="btn">Cancel</a>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
+      <% else %>
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Log in or Sign Up</span>
+            <p>Join our community</p>
+          </div>
+          <div class="card-action">
+            <a href="/login" class="white-text">Log In</a>
+            <a href="/users/new" class="white-text">Sign Up</a>
+          </div>
+        </div>
+      <% end %>
     </div> <!-- END Individual SOS Request Cards -->
 
   <!-- Modal Structure -->
@@ -115,18 +139,23 @@
 
     <div id="all" class="col s12">
       <div ng-repeat="request in ctrl.requests">
-        <div class="request card red">
+        <a name="{{ request.id }}"></a>
+        <div class="request card red" ng-hide="editorEnabled">
           <div class="card-content white-text">
             <span class="card-title">{{ request.name }}</span>
-            <p>{{ request.description }}</p>
+            <p>{{ request.description }}</p><br/>
+            <p>Skills: {{ request.skill_list }}</p>
+            <p>Location: latitude {{ request.lat }}, longitude {{ request.lng }}</p>
+            <p>Posted By: {{ request.email }}</p>
           </div>
+
           <div class="card-action">
+            <!-- <a href="#" class="edit" ng-click="editorEnabled=!editorEnabled">edit</a> -->
           </div>
         </div>
       </div>
-    </div>
-    </div>
+    </div> <!-- end "all" -->
 
-  </div>
+  </div> <!-- end row -->
 
-</div>
+</div> <!-- end container -->

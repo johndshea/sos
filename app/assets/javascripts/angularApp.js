@@ -165,9 +165,11 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 				console.log(err);
 			});
 		};
-		this.openModal = function(modal) {
-			$('#modal1').openModal();
-		};
+		// this.openModal = function(modal) {
+		// 	$('#modal1').openModal();
+		// };
 }]);
 
 /////////////    UI JS   ////////////////
+var flash = document.querySelector('.flash');
+if(flash.innerHTML){Materialize.toast(flash, 3000);}
