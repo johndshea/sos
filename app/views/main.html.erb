@@ -126,17 +126,6 @@
       <% end %>
     </div> <!-- END User's own SOS Request Cards -->
 
-  <!-- Modal Structure -->
-  <!-- <div id="modal1" class="modal modal-fixed-footer">
-    <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
-    </div>
-  </div> -->
-
     <!-- All Users' SOS Request Cards -->
     <div id="all" class="col s12">
       <div ng-repeat="request in ctrl.requests">
@@ -154,8 +143,12 @@
             <% if current_user and current_user.email == 'john@foo.com' %>
               <a href="#" ng-click="ctrl.deleteRequest(request)" class="btn">Delete</a>
             <% end %>
-              <a href="#" class="edit" ng-click="commentsEnabled=!commentsEnabled">
+              <a href="#" class="edit" ng-show="!commentsEnabled"
+               ng-click="commentsEnabled=!commentsEnabled">
                 Show {{ request.comments.length }} Comments</a>
+                <a href="#" class="edit" ng-show="commentsEnabled"
+                 ng-click="commentsEnabled=!commentsEnabled">
+                  Hide {{ request.comments.length }} Comments</a>
           </div>
         </div>
 
@@ -169,17 +162,17 @@
                   <p>{{ comment.body }}</p>
                 </li>
 
-                <li class="collection-item">
-                  <form ng-submit="ctrl.createComment()">
+                <div class="collection-item">
+                  <form ng-submit="ctrl.createComment(request.id, <%= current_user.id or 'not logged in' %>)">
                     <div class="input-field col s9">
                       <input placeholder="Add a Comment" id="comment" type="text"
                        ng-model="ctrl.newCommentBody">
                     </div>
                     <div class="input-field col s3">
-                      <input type="submit" class="btn">
+                      <input type="submit" class="btn" value="comment">
                     </div>
                   </form>
-               </li>
+               </div>
               </ul>
             </div>
         </div>

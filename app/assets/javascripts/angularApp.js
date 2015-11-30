@@ -5,13 +5,13 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 	var authenticity_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 	var controller = this;
 
-	// Position object created when app launches
+	// Placeholder position object created when app launches
 	var globalPosition = {
 		latitude: 0,
 		longitude: 0
 	};
 
-	// Loads Google Maps, then loads all
+	// On initial page load, loads Google Maps, then loads all SOS requests
 	navigator.geolocation.getCurrentPosition(initialize);
 	function initialize(position) {
 		var mapProp = {
@@ -68,7 +68,10 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 			console.log(err);
 		});
 	}
-	// google.maps.event.addDomListener(window, 'load', initialize);
+
+	this.createComment = function(request_id, current_user_id) {
+		console.log(request_id, current_user_id, controller.newCommentBody);
+	};
 
 	//GETS ALL REQUESTS - THIS IS CALLED AS-NEEDED RATHER THAN ON LOAD
 	this.getRequests = function () {
@@ -90,8 +93,6 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 			console.log(err);
 		});
 	};
-
-	// this.getRequests();
 
 	//CREATES A NEW SOS REQUEST
 	this.createRequest = function () {
@@ -119,7 +120,6 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 		}
 	};
 
-
 	// EDIT SOS REQUEST
 	this.editRequest = function (request) {
 		$http.patch('/requests/' + request.id, {
@@ -134,25 +134,18 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 			});
 		};
 
-		// DELETE SOS REQUEST
-		this.deleteRequest = function (request) {
-			$http.delete('/requests/' + request.id + '.json', {
-				authenticity_token: authenticity_token
-			}).success(function (data) {
-				controller.getRequests();
-			}).error(function(err) {
-				console.log(err);
-			});
-		};
-		// this.openModal = function(modal) {
-		// 	$('#modal1').openModal();
-		// };
-}]);
-
-	// CREATE NEW COMMENT
-	this.createComment = function() {
-	  console.log("triggered");
+	// DELETE SOS REQUEST
+	this.deleteRequest = function (request) {
+		$http.delete('/requests/' + request.id + '.json', {
+			authenticity_token: authenticity_token
+		}).success(function (data) {
+			controller.getRequests();
+		}).error(function(err) {
+			console.log(err);
+		});
 	};
+
+}]);
 
 /////////////    UI JS   ////////////////
 var flash = document.querySelector('.flash');
