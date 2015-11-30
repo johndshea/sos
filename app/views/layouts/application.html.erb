@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%= csrf_meta_tags %>
 
-    <title>&#60;sos&#62;</title>
+    <a href='/'><title>&#60;sos&#62;</title></a>
 
   </head>
   <body ng-controller="RequestsController as ctrl" ng-cloak>
@@ -20,8 +20,9 @@
       <ul class="right">
         <% if logged_in? %>
           <li><a href="#" class="black-text"><%= "Logged in as #{current_user.email}" %></a></li>
+          <li><a href="/logout" class="black-text">Log Out</li>
         <% else %>
-          <li><a href="#" class="black-text">Logged Out</a></li>
+          <li><a href="/login" class="black-text">Log In</li>
         <% end %>
       </ul>
 
