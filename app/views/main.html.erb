@@ -161,18 +161,19 @@
                    <span class="title">{{ comment.user_email }}</span>
                   <p>{{ comment.body }}</p>
                 </li>
-
-                <div class="collection-item">
-                  <form ng-submit="ctrl.createComment({{ request.id || 'no request'}}, <%= current_user.id or 'not logged in' %>, '<%= current_user.email or 'not logged in' %>')">
-                    <div class="input-field col s9">
-                      <input placeholder="Add a Comment" id="comment" type="text"
-                       ng-model="ctrl.newCommentBody">
-                    </div>
-                    <div class="input-field col s3">
-                      <input type="submit" class="btn" value="comment">
-                    </div>
-                  </form>
-               </div>
+                <% if logged_in? %>
+                  <div class="collection-item">
+                    <form ng-submit="ctrl.createComment(request.id, <%= current_user.id or 'not logged in' %>, '<%= current_user.email or 'not logged in' %>')">
+                      <div class="input-field col s9">
+                        <input placeholder="Add a Comment" id="comment" type="text"
+                         ng-model="ctrl.newCommentBody">
+                      </div>
+                      <div class="input-field col s3">
+                        <input type="submit" class="btn" value="comment">
+                      </div>
+                    </form>
+                 </div>
+               <% end %>
               </ul>
             </div>
         </div>
