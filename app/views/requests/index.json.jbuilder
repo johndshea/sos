@@ -13,6 +13,10 @@ json.array!(@requests) do |request|
     json.email         request.user.email
   end
 
+  if request.comments
+    json.comments       request.comments
+  end
+
   json.url           request_url(request, format: :json)
 
   # json.extract! request, :id, :name, :description, :skills, :skill_list, :lat, :lng

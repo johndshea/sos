@@ -14,36 +14,36 @@
       <% if logged_in? %>
         <div>
           <form class="newform" ng-submit="ctrl.createRequest()">
-          <div class="input-field col s12">
-            <input
-              type="text"
-              class=""
-              id="create_name"
-              cols: "30"
-              class="taskName"
-              ng-model="ctrl.newRequestName">
-            <label for="create_name">What do you need help with?</label>
-          </div><br/>
-          <div class="input-field col s12">
-            <textarea
-              class="materialize-textarea"
-              id="create_desc"
-              placeholder="Description"
-              ng-model="ctrl.newRequestDescription"
-              rows="3"
-              cols="40"></textarea><br/>
-            <label for="create_desc">Tell a little more about your problem</label>
             <div class="input-field col s12">
-                <input type="text" id="create_skill_list"
-                     ng-model="ctrl.newRequestSkillList">
-               <label for="create_skill_list">Skills</label>
+              <input
+                type="text"
+                class=""
+                id="create_name"
+                cols: "30"
+                class="taskName"
+                ng-model="ctrl.newRequestName">
+              <label for="create_name">What do you need help with?</label>
+            </div><br/>
+            <div class="input-field col s12">
+              <textarea
+                class="materialize-textarea"
+                id="create_desc"
+                placeholder="Description"
+                ng-model="ctrl.newRequestDescription"
+                rows="3"
+                cols="40"></textarea><br/>
+              <label for="create_desc">Tell a little more about your problem</label>
+              <div class="input-field col s12">
+                  <input type="text" id="create_skill_list"
+                       ng-model="ctrl.newRequestSkillList">
+                 <label for="create_skill_list">Skills</label>
+              </div>
+              <br/>
+              <input id="file-input" type="file" ngf-select="upload($file)"
+              ng-model="ctrl.image" ngf-pattern="'image/*'" accept="image/*"
+              ngf-max-size="20MB" ngf-min-height="100">
+              <input type="submit" class="btn" value="add">
             </div>
-            <br/>
-            <input id="file-input" type="file" ngf-select="upload($file)"
-            ng-model="ctrl.image" ngf-pattern="'image/*'" accept="image/*"
-            ngf-max-size="20MB" ngf-min-height="100">
-            <input type="submit" class="btn" value="add">
-          </div>
           </form>
         </div>
       <% else %>
@@ -61,7 +61,7 @@
     </div>
     <div id="mine" class="col s12">
 
-      <!-- Individual SOS Request Cards -->
+      <!-- The user's own SOS Request Cards -->
       <% if logged_in? %>
         <div ng-repeat="request in ctrl.requests | filter: {user_id: <%= current_user.id %>}">
           <a name="{{ request.id }}"></a>
@@ -124,7 +124,7 @@
           </div>
         </div>
       <% end %>
-    </div> <!-- END Individual SOS Request Cards -->
+    </div> <!-- END User's own SOS Request Cards -->
 
   <!-- Modal Structure -->
   <!-- <div id="modal1" class="modal modal-fixed-footer">
@@ -137,6 +137,7 @@
     </div>
   </div> -->
 
+    <!-- All Users' SOS Request Cards -->
     <div id="all" class="col s12">
       <div ng-repeat="request in ctrl.requests">
         <a name="{{ request.id }}"></a>
@@ -153,11 +154,40 @@
             <% if current_user and current_user.email == 'john@foo.com' %>
               <a href="#" ng-click="ctrl.deleteRequest(request)" class="btn">Delete</a>
             <% end %>
+              <a href="#" class="edit" ng-click="commentsEnabled=!commentsEnabled">
+                Show {{ request.comments.length }} Comments</a>
           </div>
         </div>
+
+        <div class="card white" ng-show="commentsEnabled">
+            <div class="card-content black-text">
+              <ul class="collection">
+
+                 <li class="collection-item avatar" ng-repeat="comment in request.comments">
+                   <img src="http://simpleicon.com/wp-content/uploads/user1.png" alt="" class="circle">
+                   <span class="title">{{ comment.user_email }}</span>
+                  <p>{{ comment.body }}</p>
+                </li>
+
+                <li class="collection-item">
+                  <form ng-submit="ctrl.createComment()">
+                    <div class="input-field col s9">
+                      <input placeholder="Add a Comment" id="comment" type="text"
+                       ng-model="ctrl.newCommentBody">
+                    </div>
+                    <div class="input-field col s3">
+                      <input type="submit" class="btn">
+                    </div>
+                  </form>
+               </li>
+              </ul>
+            </div>
+        </div>
+
       </div>
     </div> <!-- end "all" -->
 
+    <!-- Searchable/sortable list of all SOS request cards -->
     <div id="search" class="col s12">
       <% if logged_in? %>
         <nav>
@@ -170,7 +200,7 @@
               </div>
             </form>
           </div>
-        </nav>
+        </nav> <!-- end "search" -->
 
         <div ng-repeat="request in ctrl.requests | filter:searchText">
           <a name="{{ request.id }}"></a>

@@ -2,6 +2,7 @@ class Request < ActiveRecord::Base
   belongs_to :user
   has_many :request_skills
   has_many :skills, through: :request_skills
+  has_many :comments
 
   def skill_list
     self.skills.collect do |skill|

@@ -63,6 +63,7 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 			});
 
 			controller.requests = data;
+
 		}).error(function(err) {
 			console.log(err);
 		});
@@ -118,28 +119,6 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 		}
 	};
 
-	// Upload Picture on file select or drop
-  // this.upload = function (file) {
-  //   Upload.upload({
-  //     url: 'requests/' + request.id + '.json',
-  //     method: 'PUT',
-  //     headers: { 'Content-Type': false },
-  //     fields: {
-  //       'request[name]': request.name,
-  //       'request[description]': request.description,
-  //       'request[image]': file
-  //     },
-  //     file: file,
-  //     sendFieldsAs: 'json'
-  //   }).then(function (resp) {
-  //     console.log('Success ' + resp.config.file.name + 'uploaded. Response: ' + resp.data);
-  //   }, function (resp) {
-  //     console.log('Error status: ' + resp.status);
-  //   }, function (evt) {
-  //     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-  //     console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
-  //   });
-  // };
 
 	// EDIT SOS REQUEST
 	this.editRequest = function (request) {
@@ -169,6 +148,11 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 		// 	$('#modal1').openModal();
 		// };
 }]);
+
+	// CREATE NEW COMMENT
+	this.createComment = function() {
+	  console.log("triggered");
+	};
 
 /////////////    UI JS   ////////////////
 var flash = document.querySelector('.flash');
