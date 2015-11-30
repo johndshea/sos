@@ -22,8 +22,7 @@
           <li><a href="#" class="black-text"><%= "Logged in as #{current_user.email}" %></a></li>
           <li><a href="/logout" class="black-text">Log Out</li>
         <% else %>
-          <li><a href="/login" class="black-text">Log In</li>
-            <li><a href="/users/new" class="black-text">Sign Up</li>
+          <li><a href="/login" class="black-text">Log In</li><li><a href="/users/new" class="black-text">Sign Up</li>
         <% end %>
       </ul>
 
@@ -33,49 +32,11 @@
     </div>
   </nav>
 
-<!-- manually disabled. Should read: if !logged_in? -->
-<% if false %>
-<p class="flash">
-  <%= flash.notice %>
-</p>
-
-<div class="container">
-  <div class="card large white">
-    <div class="card-content white-text">
-      <form action="/session.json" method="POST">
-        <span class="card-title black-text">Log in or Sign Up</span>
-        <input type="hidden" name="authenticity_token"
-        value="<%= form_authenticity_token %>">
-
-        <div class="input-field col s12">
-          <input type="email" name="user[email]" id="email">
-          <label for="email">email</label>
-        </div>
-
-        <div class="input-field col s12" id="password">
-          <input type="password" name="user[password]" id="password">
-          <label for="password">password</label>
-        </div>
-
-        <div class="input-field col s12">
-          <input type="submit" value="Sign Up">
-        </div>
-
-      </form>
-    </div>
-  </div>
-</div>
-<% end %>
-
-<% if true or logged_in? %>
-
-<p class="flash">
-  <%= flash.notice %>
-</p>
+  <p class="flash">
+    <%= flash.notice %>
+  </p>
 
     <%= yield %>
-
-<% end %>
 
 <!-- switch for minified version when moving to production -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
