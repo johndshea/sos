@@ -69,8 +69,21 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 		});
 	}
 
-	this.createComment = function(request_id, current_user_id) {
-		console.log(request_id, current_user_id, controller.newCommentBody);
+	this.createComment = function(request_id, current_user_id, current_user_email) {
+		console.log(request_id, current_user_id, current_user_email, controller.newCommentBody);
+		$http.post('/requests/'+ request_id +'/comments.json', {
+			authenticity_token: authenticity_token,
+			comment: {
+				body: controller.newCommentBody,
+				request_id: request_id,
+				user_id: current_user_id,
+				user_email: current_user_email
+			}
+		}).success(function (data) {
+			console.log(data);
+			controller.newCommentBody = '';
+			controller.getRequests();
+		});
 	};
 
 	//GETS ALL REQUESTS - THIS IS CALLED AS-NEEDED RATHER THAN ON LOAD
@@ -150,3 +163,7 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 /////////////    UI JS   ////////////////
 var flash = document.querySelector('.flash');
 if(flash.innerHTML){Materialize.toast(flash, 3000);}
+
+$(document).ready(function(){
+	$(".button-collapse").sideNav();
+});

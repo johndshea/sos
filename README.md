@@ -9,6 +9,8 @@ finn
 
 Todo:
 
+* BUG: adding a comment re-calls the whole Index API, so comment view collapses instead of staying open. Fix by taking the returned JSON and appending it to the DOM without refreshing the whole API.
+
 * Remove skip authenticity_token
 
 * Switch from local to CDN versions of various frameworks.

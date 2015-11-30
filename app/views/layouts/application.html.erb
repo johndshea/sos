@@ -14,26 +14,35 @@
 
   </head>
   <body ng-controller="RequestsController as ctrl" ng-cloak>
-    <nav class="white" role="navigation">
-    <div class="nav-wrapper container">
-      <a id="logo-container" href="#" class="brand-logo black-text">&#60;sos&#62;</a>
-      <ul class="right">
-        <% if logged_in? %>
-          <li><a href="#" class="black-text"><%= "Logged in as #{current_user.email}" %></a></li>
-          <li><a href="/logout" class="black-text">Log Out</li>
-        <% else %>
-          <li><a href="/login" class="black-text">Log In</a></li>
-          <li><a href="/users/new" class="black-text">Sign Up</a></li>
-        <% end %>
-      </ul>
 
-      <ul id="nav-mobile" class="side-nav black-text">
-        <li><a href="#">My Account</a></li>
-      </ul>
-    </div>
-  </nav>
+
+    <nav>
+        <div class="nav-wrapper red">
+          <a href="#!" class="brand-logo">&#60;sos&#62;</a>
+          <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
+            <% if logged_in? %>
+              <li><a href="#" class="white-text"><%= "Logged in as #{current_user.email}" %></a></li>
+              <li><a href="/logout" class="white-text">Log Out</li>
+            <% else %>
+              <li><a href="/login" class="white-text">Log In</a></li>
+              <li><a href="/users/new" class="white-text">Sign Up</a></li>
+            <% end %>
+          </ul>
+          <ul class="side-nav" id="mobile-demo">
+            <% if logged_in? %>
+              <li><a href="#" class="black-text"><%= "Logged in as #{current_user.email}" %></a></li>
+              <li><a href="/logout" class="black-text">Log Out</li>
+            <% else %>
+              <li><a href="/login" class="black-text">Log In</a></li>
+              <li><a href="/users/new" class="black-text">Sign Up</a></li>
+            <% end %>
+          </ul>
+        </div>
+      </nav>
 
   <div class="hidden">
+    <a></a>
     <p class="flash">
       <%= flash.notice or 'please wait, APIs are slow' %>
     </p>

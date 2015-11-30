@@ -39,9 +39,9 @@
                  <label for="create_skill_list">Skills</label>
               </div>
               <br/>
-              <input id="file-input" type="file" ngf-select="upload($file)"
+              <!-- <input id="file-input" type="file" ngf-select="upload($file)"
               ng-model="ctrl.image" ngf-pattern="'image/*'" accept="image/*"
-              ngf-max-size="20MB" ngf-min-height="100">
+              ngf-max-size="20MB" ngf-min-height="100"> -->
               <input type="submit" class="btn" value="add">
             </div>
           </form>
@@ -141,7 +141,7 @@
 
           <div class="card-action">
             <% if current_user and current_user.email == 'john@foo.com' %>
-              <a href="#" ng-click="ctrl.deleteRequest(request)" class="btn">Delete</a>
+              <a href="#" ng-click="ctrl.deleteRequest(request)">Delete</a>
             <% end %>
               <a href="#" class="edit" ng-show="!commentsEnabled"
                ng-click="commentsEnabled=!commentsEnabled">
@@ -163,7 +163,7 @@
                 </li>
 
                 <div class="collection-item">
-                  <form ng-submit="ctrl.createComment(request.id, <%= current_user.id or 'not logged in' %>)">
+                  <form ng-submit="ctrl.createComment(request.id, <%= current_user.id or 'not logged in' %>, '<%= current_user.email or 'not logged in' %>')">
                     <div class="input-field col s9">
                       <input placeholder="Add a Comment" id="comment" type="text"
                        ng-model="ctrl.newCommentBody">

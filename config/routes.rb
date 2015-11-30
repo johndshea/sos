@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
   root to: 'application#main'
-  resources :requests
+
+  resources :requests do
+    resources :comments, only: [ :create ]
+  end
+  
   resources :skills
+
   resources :users
+
   resources :session, only: [ :new, :create, :destroy ]
 
   get 'login'  => 'session#new'
