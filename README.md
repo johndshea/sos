@@ -4,6 +4,8 @@ Todo:
 
 * Revisit blogger tutorial for tags and paperclip(file upload)
 
+* Trying to access Users in console creates an error with Sorcery. Don't know why.
+
 * perhaps put login into a modal? If not, perhaps put sos creation into a modal?
 
 * Remove skip authenticity_token

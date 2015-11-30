@@ -163,7 +163,7 @@ app.controller('RequestsController', ['$http', '$scope', function($http, $scope)
 			}).success(function (data) {
 				controller.getRequests();
 			}).error(function(err) {
-				console.log(err);
+				console.log(err); 
 			});
 		};
 		this.openModal = function(modal) {

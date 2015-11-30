@@ -1,4 +1,5 @@
 <div class="container">
+  <div id="googleMap" style="margin:0 auto;width:100%;height:380px; border-radius: 5px;"></div>
   <div class="row">
     <br />
     <div class="col s12">
@@ -73,7 +74,7 @@
                   <input type="text" id="change_name"
                        ng-model="request.name">
                  </span>
-                 <label for="change_name">Name</label>
+                 <label class="active" for="change_name">Name</label>
               </div>
             </div>
             <div class="input-field col s12">
@@ -82,12 +83,12 @@
                         rows="3"
                         cols="30"
                         class="materialize-textarea"></textarea>
-              <label for="change_description">Description</label>
+              <label class="active" for="change_description">Description</label>
             </div>
             <div class="input-field col s12">
                 <input type="text" id="change_skill_list"
                      ng-model="request.skill_list">
-               <label for="change_skill_list">Skills</label>
+               <label class="active" for="change_skill_list">Skills</label>
             </div>
             <div class="card-action">
               <a href="#" ng-click="ctrl.deleteRequest(request)" class="btn">Delete</a>

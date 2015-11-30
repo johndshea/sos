@@ -3,6 +3,7 @@ class SessionController < ApplicationController
   end
 
   def create
+    puts params
     if login(params[:email], params[:password])
       redirect_back_or_to(application_path, notice: 'Logged in successfully.')
     else

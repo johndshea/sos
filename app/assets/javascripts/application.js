@@ -12,4 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-// require_tree .
+//= require jquery-ui
+//= require maps_api
+//= require angular
+//= require materialize
+//= require angularApp
+//= require_tree .
