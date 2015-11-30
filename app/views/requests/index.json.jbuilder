@@ -1,7 +1,23 @@
 json.array!(@requests) do |request|
-  json.extract! request, :id, :name, :description, :skills, :skill_list, :lat, :lng
+
+  json.id            request.id
+  json.name          request.name
+  json.description   request.description
+  json.skills        request.skills
+  json.skill_list    request.skill_list
+  json.lat           request.lat
+  json.lng           request.lng
+
   if request.user
-    json.extract! request.user, :email
+    json.user_id       request.user.id
+    json.email         request.user.email
   end
-  json.url request_url(request, format: :json)
+
+  json.url           request_url(request, format: :json)
+
+  # json.extract! request, :id, :name, :description, :skills, :skill_list, :lat, :lng
+  # if request.user
+  #   json.extract! request.user, :email
+  # end
+
 end

@@ -63,7 +63,7 @@
 
       <!-- Individual SOS Request Cards -->
       <% if logged_in? %>
-        <div ng-repeat="request in ctrl.requests">
+        <div ng-repeat="request in ctrl.requests | filter: {user_id: <%= current_user.id %>}">
           <a name="{{ request.id }}"></a>
           <div class="request card red" ng-hide="editorEnabled">
             <div class="card-content white-text">
@@ -150,11 +150,45 @@
           </div>
 
           <div class="card-action">
-            <!-- <a href="#" class="edit" ng-click="editorEnabled=!editorEnabled">edit</a> -->
+            <% if current_user and current_user.email == 'john@foo.com' %>
+              <a href="#" ng-click="ctrl.deleteRequest(request)" class="btn">Delete</a>
+            <% end %>
           </div>
         </div>
       </div>
     </div> <!-- end "all" -->
+
+    <div id="help" class="col s12">
+      <% if logged_in? %>
+        <div ng-repeat="request in ctrl.requests">
+          <a name="{{ request.id }}"></a>
+          <div class="request card red" ng-hide="editorEnabled">
+            <div class="card-content white-text">
+              <span class="card-title">{{ request.name }}</span>
+              <p>{{ request.description }}</p><br/>
+              <p>Skills: {{ request.skill_list }}</p>
+              <p>Location: latitude {{ request.lat }}, longitude {{ request.lng }}</p>
+              <p>Posted By: {{ request.email }}</p>
+            </div>
+
+            <div class="card-action">
+              <!-- need to have something here -->
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Log in or Sign Up</span>
+            <p>Join our community</p>
+          </div>
+          <div class="card-action">
+            <a href="/login" class="white-text">Log In</a>
+            <a href="/users/new" class="white-text">Sign Up</a>
+          </div>
+        </div>
+      <% end %>
+    </div> <!-- end "help" -->
 
   </div> <!-- end row -->
 
