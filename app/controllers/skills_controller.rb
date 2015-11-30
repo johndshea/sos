@@ -1,4 +1,5 @@
 class SkillsController < ApplicationController
+  before_filter :require_login, only: [:destroy]
   before_action :set_skill, only: [:show, :edit, :update, :destroy]
 
   # GET /skills

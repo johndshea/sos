@@ -1,4 +1,5 @@
 class RequestsController < ApplicationController
+  before_filter :require_login, except: [:index, :show]
   before_action :set_request, only: [:show, :edit, :update, :destroy]
 
   # GET /requests
