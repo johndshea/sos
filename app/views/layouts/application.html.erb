@@ -18,11 +18,11 @@
 
     <nav>
         <div class="nav-wrapper red">
-          <a href="#!" class="brand-logo"> &#60;sos&#62; </a>
-          <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+          <a href="" class="brand-logo"> &#60;sos&#62; </a>
+          <a href="" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
           <ul class="right hide-on-med-and-down">
             <% if logged_in? %>
-              <li><a href="#" class="white-text"><%= "Logged in as #{current_user.email}" %></a></li>
+              <li><a href="" class="white-text"><%= "Logged in as #{current_user.email}" %></a></li>
               <li><a href="/logout" class="white-text">Log Out</li>
             <% else %>
               <li><a href="/login" class="white-text">Log In</a></li>
@@ -31,7 +31,7 @@
           </ul>
           <ul class="side-nav" id="mobile-demo">
             <% if logged_in? %>
-              <li><a href="#" class="black-text"><%= "Logged in as #{current_user.email}" %></a></li>
+              <li><a href="" class="black-text"><%= "Logged in as #{current_user.email}" %></a></li>
               <li><a href="/logout" class="black-text">Log Out</li>
             <% else %>
               <li><a href="/login" class="black-text">Log In</a></li>
@@ -42,6 +42,7 @@
       </nav>
 
   <div class="hidden">
+    <!-- FOR SOME INEXPLICABLE REASON, IF I DELETE THIS EMPTY ANCHOR TAG, MY ENTIRE DOM STRUCTRE FALLS APART -->
     <a></a>
     <p class="flash">
       <%= flash.notice or 'please wait, APIs are slow' %>

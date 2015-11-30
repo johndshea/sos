@@ -4,7 +4,7 @@
     <br />
     <div class="col s12">
       <ul class="tabs">
-        <li class="tab col s3"><a class="active" href="#all">All Help Requests</a></li>
+        <li class="tab col s3"><a href="#all" class="active" >All Help Requests</a></li>
         <li class="tab col s3"><a href="#create">Ask For Help</a></li>
         <li class="tab col s3"><a href="#mine">My Help Requests</a></li>
         <li class="tab col s3"><a href="#search">Search</a></li>
@@ -75,7 +75,7 @@
             </div>
 
             <div class="card-action">
-              <a href="#" class="edit" ng-click="editorEnabled=!editorEnabled">edit</a>
+              <a href="" class="edit" ng-click="editorEnabled=!editorEnabled">edit</a>
             </div>
           </div>
 
@@ -104,10 +104,10 @@
                  <label class="active" for="change_skill_list">Skills</label>
               </div>
               <div class="card-action">
-                <a href="#" ng-click="ctrl.deleteRequest(request)" class="btn">Delete</a>
+                <a href="" ng-click="ctrl.deleteRequest(request)" class="btn">Delete</a>
                 <input type="submit" value="Change Request" class="btn"
                  ng-click="editorEnabled=!editorEnabled">
-                 <a href="#" ng-click="editorEnabled=!editorEnabled" class="btn">Cancel</a>
+                 <a href="" ng-click="editorEnabled=!editorEnabled" class="btn">Cancel</a>
               </div>
             </form>
           </div>
@@ -141,12 +141,12 @@
 
           <div class="card-action">
             <% if current_user and current_user.email == 'john@foo.com' %>
-              <a href="#" ng-click="ctrl.deleteRequest(request)">Delete</a>
+              <a href="" ng-click="ctrl.deleteRequest(request)">Delete</a>
             <% end %>
-              <a href="#" class="edit" ng-show="!commentsEnabled"
+              <a href="" class="edit" ng-show="!commentsEnabled"
                ng-click="commentsEnabled=!commentsEnabled">
                 Show {{ request.comments.length }} Comments</a>
-                <a href="#" class="edit" ng-show="commentsEnabled"
+                <a href="" class="edit" ng-show="commentsEnabled"
                  ng-click="commentsEnabled=!commentsEnabled">
                   Hide {{ request.comments.length }} Comments</a>
           </div>
