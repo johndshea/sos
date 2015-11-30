@@ -7,7 +7,7 @@
         <li class="tab col s3"><a class="active" href="#all">All Help Requests</a></li>
         <li class="tab col s3"><a href="#create">Ask For Help</a></li>
         <li class="tab col s3"><a href="#mine">My Help Requests</a></li>
-        <li class="tab col s3"><a href="#help">People I can Help</a></li>
+        <li class="tab col s3"><a href="#search">Search</a></li>
       </ul>
     </div>
     <div id="create" class="col s12">
@@ -158,9 +158,21 @@
       </div>
     </div> <!-- end "all" -->
 
-    <div id="help" class="col s12">
+    <div id="search" class="col s12">
       <% if logged_in? %>
-        <div ng-repeat="request in ctrl.requests">
+        <nav>
+          <div class="nav-wrapper">
+            <form>
+              <div class="input-field">
+                <input id="search" ng-model="searchText" type="search" required>
+                <label for="search"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
+              </div>
+            </form>
+          </div>
+        </nav>
+
+        <div ng-repeat="request in ctrl.requests | filter:searchText">
           <a name="{{ request.id }}"></a>
           <div class="request card red" ng-hide="editorEnabled">
             <div class="card-content white-text">
