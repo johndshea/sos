@@ -208,8 +208,42 @@
             </div>
 
             <div class="card-action">
-              <!-- need to have something here -->
+              <% if current_user and current_user.email == 'john@foo.com' %>
+                <a href="" ng-click="ctrl.deleteRequest(request)">Delete</a>
+              <% end %>
+                <a href="" class="edit" ng-show="!commentsEnabled"
+                 ng-click="commentsEnabled=!commentsEnabled">
+                  Show {{ request.comments.length }} Comments</a>
+                  <a href="" class="edit" ng-show="commentsEnabled"
+                   ng-click="commentsEnabled=!commentsEnabled">
+                    Hide {{ request.comments.length }} Comments</a>
             </div>
+          </div>
+
+          <div class="card white" ng-show="commentsEnabled">
+              <div class="card-content black-text">
+                <ul class="collection">
+
+                   <li class="collection-item avatar" ng-repeat="comment in request.comments">
+                     <img src="http://simpleicon.com/wp-content/uploads/user1.png" alt="" class="circle">
+                     <span class="title">{{ comment.user_email }}</span>
+                    <p>{{ comment.body }}</p>
+                  </li>
+                  <% if logged_in? %>
+                    <div class="collection-item">
+                      <form ng-submit="ctrl.createComment(request.id, <%= current_user.id or 'not logged in' %>, '<%= current_user.email or 'not logged in' %>')">
+                        <div class="input-field col s9">
+                          <input placeholder="Add a Comment" id="comment" type="text"
+                           ng-model="ctrl.newCommentBody">
+                        </div>
+                        <div class="input-field col s3">
+                          <input type="submit" class="btn" value="comment">
+                        </div>
+                      </form>
+                   </div>
+                 <% end %>
+                </ul>
+              </div>
           </div>
         </div>
       <% else %>
@@ -224,7 +258,7 @@
           </div>
         </div>
       <% end %>
-    </div> <!-- end "help" -->
+    </div> <!-- end "search" -->
 
   </div> <!-- end row -->
 

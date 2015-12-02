@@ -1,4 +1,4 @@
-<sos> is a location-based help app for programmers. Post an SOS request, and a nearby programmer will swoop in on feathery, axe-scented wings to help you in your distress. SOS requests can be tagged with "skills" such as jQuery, Ruby, or MySQL, so as to match up a crisis with the right neck-bearded savior.
+FlareGun (formerly <sos>) is a location-based help app for programmers. Post an SOS request, and a nearby programmer will swoop in on feathery, axe-scented wings to help you in your distress. SOS requests can be tagged with "skills" such as jQuery, Ruby, or MySQL, so as to match up a crisis with the right neck-bearded savior.
 
 Default user accounts (@foo.com):
 
